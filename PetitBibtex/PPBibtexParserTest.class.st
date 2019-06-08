@@ -10,6 +10,30 @@ PPBibtexParserTest >> parserClass [
 ]
 
 { #category : #testing }
+PPBibtexParserTest >> testEntries [
+	| entries string |
+	entries := {(BibtexEntry
+		type: 'type'
+		citationKey: 'pitts123'
+		tags:
+			{(BibtexTag name: 'tag' value: '2005').
+			(BibtexTag name: 'tag' value: '2005')}).
+	(BibtexEntry
+		type: 'type'
+		citationKey: 'pitts123'
+		tags:
+			{(BibtexTag name: 'tag' value: '2006').
+			(BibtexTag name: 'tag' value: '2006')})}.
+	string := ' @type { pitts123,
+    tag = {2005},
+
+    tag = {2005},
+   }
+   @type { pitts123, tag = {2006}, tag = {2006}, }'.
+	self assert: (self parse: string rule: #entries) equals: entries
+]
+
+{ #category : #testing }
 PPBibtexParserTest >> testEntry [
 	| entry entryString |
 	entry := BibtexEntry

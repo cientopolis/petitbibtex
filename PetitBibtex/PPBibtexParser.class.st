@@ -17,6 +17,12 @@ Class {
 }
 
 { #category : #productions }
+PPBibtexParser >> entries [
+	^ (whitespace star , entry star , whitespace star)
+		==> [ :nodes | nodes second ]
+]
+
+{ #category : #productions }
 PPBibtexParser >> entry [
 	^ (whitespace star flatten , $@ asParser , nonBraket plus flatten
 		, ${ asParser , whitespace star flatten , nonSeparator plus flatten
@@ -56,7 +62,7 @@ PPBibtexParser >> nonSeparator [
 PPBibtexParser >> start [
 	"Answer the production to start this parser with."
 
-	^ self tagValue end
+	^ self entries end
 ]
 
 { #category : #productions }
