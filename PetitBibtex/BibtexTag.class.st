@@ -31,6 +31,15 @@ BibtexTag >> name: aTagNameString value: aTagValueString [
 	value := aTagValueString
 ]
 
+{ #category : #printing }
+BibtexTag >> printOn: aStream [
+	aStream
+		nextPutAll: name;
+		nextPutAll: ' = {';
+		nextPutAll: value;
+		nextPut: $}
+]
+
 { #category : #accessing }
 BibtexTag >> value [
 	^ value

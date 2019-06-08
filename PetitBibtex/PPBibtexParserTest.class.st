@@ -10,21 +10,38 @@ PPBibtexParserTest >> parserClass [
 ]
 
 { #category : #testing }
+PPBibtexParserTest >> testEntry [
+	| entry entryString |
+	entry := BibtexEntry
+		type: 'type'
+		citationKey: 'pitts123'
+		tags:
+			{(BibtexTag name: 'tag' value: '2005').
+			(BibtexTag name: 'tag' value: '2005')}.
+	entryString := ' @type { pitts123,
+    tag = {2005},
+
+    tag = {2005},
+   }'.
+	self assert: (self parse: entryString rule: #entry) equals: entry
+]
+
+{ #category : #testing }
 PPBibtexParserTest >> testTag [
 	| tag |
 	tag := BibtexTag name: 'tag' value: '2005'.
 	self assert: (self parse: 'tag="2005"' rule: #tag) equals: tag.
 	self assert: (self parse: 'tag={2005}' rule: #tag) equals: tag.
 	self assert: (self parse: 'tag=2005' rule: #tag) equals: tag.
-	self assert: (self parse: ' tag = "2005" ' rule: #tag) equals: tag.
-	self assert: (self parse: ' tag = {2005} ' rule: #tag) equals: tag.
-	self assert: (self parse: ' tag = 2005 ' rule: #tag) equals: tag
+	self assert: (self parse: '  tag  =  "2005"  ' rule: #tag) equals: tag.
+	self assert: (self parse: '  tag  =  {2005}  ' rule: #tag) equals: tag.
+	self assert: (self parse: '  tag =  2005  ' rule: #tag) equals: tag
 ]
 
 { #category : #testing }
 PPBibtexParserTest >> testTagName [
 	self assert: (self parse: 'name' rule: #tagName) equals: 'name'.
-	self fail: ' name ' rule: #tagName
+	self fail: '  name  ' rule: #tagName
 ]
 
 { #category : #testing }
@@ -33,7 +50,7 @@ PPBibtexParserTest >> testTagValue [
 	self assert: (self parse: '{value}' rule: #tagValue) equals: 'value'.
 	self assert: (self parse: '2005' rule: #tagValue) equals: '2005'.
 	self fail: ' "value" ' rule: #tagValue.
-	self fail: ' {value} ' rule: #tagValue.
+	self fail: '  {value}  ' rule: #tagValue.
 	self fail: ' 2005 ' rule: #tagValue
 ]
 
@@ -46,7 +63,7 @@ PPBibtexParserTest >> testTags [
 	self
 		assertCollection: (self parse: tagsString rule: #tags)
 		equals: tags.
-	tagsString := ' tag="2005" , tag="2005", '.
+	tagsString := ' tag="2005"  ,  tag="2005", '.
 	self
 		assertCollection: (self parse: tagsString rule: #tags)
 		equals: tags.

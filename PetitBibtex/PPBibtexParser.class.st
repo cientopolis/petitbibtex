@@ -2,6 +2,8 @@ Class {
 	#name : #PPBibtexParser,
 	#superclass : #PPCompositeParser,
 	#instVars : [
+		'entries',
+		'entry',
 		'tags',
 		'tag',
 		'tagName',
@@ -13,6 +15,18 @@ Class {
 	],
 	#category : #'PetitBibtex-parser'
 }
+
+{ #category : #productions }
+PPBibtexParser >> entry [
+	^ (whitespace star flatten , $@ asParser , nonBraket plus flatten
+		, ${ asParser , whitespace star flatten , nonSeparator plus flatten
+		, $, asParser , tags , $} asParser , whitespace star)
+		==> [ :nodes | 
+			BibtexEntry
+				type: nodes third trim
+				citationKey: nodes sixth trim
+				tags: nodes eighth ]
+]
 
 { #category : #productions }
 PPBibtexParser >> nonBraket [
