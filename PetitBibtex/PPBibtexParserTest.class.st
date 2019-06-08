@@ -61,6 +61,9 @@ PPBibtexParserTest >> testStringWithBalancedCurlies [
 		assert: (self parse: '{name}' rule: #stringWithBalancedCurlies)
 		equals: '{name}'.
 	self
+		assert: (self parse: '{n\{am\}e}' rule: #stringWithBalancedCurlies)
+		equals: '{n\{am\}e}'.
+	self
 		assert: (self parse: '{{name}}' rule: #stringWithBalancedCurlies)
 		equals: '{{name}}'.
 	self

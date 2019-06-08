@@ -12,7 +12,8 @@ Class {
 		'nonSeparator',
 		'nonBraket',
 		'nonQuote',
-		'stringWithBalancedCurlies'
+		'stringWithBalancedCurlies',
+		'scapedBraket'
 	],
 	#category : #'PetitBibtex-parser'
 }
@@ -37,7 +38,7 @@ PPBibtexParser >> entry [
 
 { #category : #productions }
 PPBibtexParser >> nonBraket [
-	^ PPPredicateObjectParser anyExceptAnyOf: {${ . $}}
+	^ PPPredicateObjectParser anyExceptAnyOf: {${ . $}} 
 ]
 
 { #category : #productions }
@@ -59,6 +60,11 @@ PPBibtexParser >> nonSeparator [
 			$,}
 ]
 
+{ #category : #productions }
+PPBibtexParser >> scapedBraket [
+	^ '\{' asParser / '\}' asParser
+]
+
 { #category : #accessing }
 PPBibtexParser >> start [
 	"Answer the production to start this parser with."
@@ -68,7 +74,7 @@ PPBibtexParser >> start [
 
 { #category : #productions }
 PPBibtexParser >> stringWithBalancedCurlies [
-	^ (${ asParser , (nonBraket / stringWithBalancedCurlies) plus 
+	^ (${ asParser , (scapedBraket / nonBraket / stringWithBalancedCurlies) plus 
 		, $} asParser) flatten
 ]
 
