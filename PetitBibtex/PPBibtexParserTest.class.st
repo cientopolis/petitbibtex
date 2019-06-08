@@ -16,9 +16,9 @@ PPBibtexParserTest >> testTag [
 	self assert: (self parse: 'tag="2005"' rule: #tag) equals: tag.
 	self assert: (self parse: 'tag={2005}' rule: #tag) equals: tag.
 	self assert: (self parse: 'tag=2005' rule: #tag) equals: tag.
-	self assert: (self parse: 'tag = "2005"' rule: #tag) equals: tag.
-	self assert: (self parse: 'tag = {2005}' rule: #tag) equals: tag.
-	self assert: (self parse: 'tag = 2005' rule: #tag) equals: tag
+	self assert: (self parse: ' tag = "2005" ' rule: #tag) equals: tag.
+	self assert: (self parse: ' tag = {2005} ' rule: #tag) equals: tag.
+	self assert: (self parse: ' tag = 2005 ' rule: #tag) equals: tag
 ]
 
 { #category : #testing }
@@ -39,11 +39,23 @@ PPBibtexParserTest >> testTagValue [
 
 { #category : #testing }
 PPBibtexParserTest >> testTags [
-	| tags |
-	tags := 'tag="2005",tag="2005"'.
-	self assert: (self parse: tags rule: #tags) size equals: 2.
-	tags := ' tag="2005" , tag="2005" '.
-	self assert: (self parse: tags rule: #tags) size equals: 2.
-	tags := ' tag="2005",\tag="2005"\' withCRs.
-	self assert: (self parse: tags rule: #tags) size equals: 2
+	| tags tagsString |
+	tags := {(BibtexTag name: 'tag' value: '2005').
+	(BibtexTag name: 'tag' value: '2005')}.
+	tagsString := 'tag="2005",tag="2005",'.
+	self
+		assertCollection: (self parse: tagsString rule: #tags)
+		equals: tags.
+	tagsString := ' tag="2005" , tag="2005", '.
+	self
+		assertCollection: (self parse: tagsString rule: #tags)
+		equals: tags.
+	tagsString := 'tag="2005",\tag="2005",\' withCRs.
+	self
+		assertCollection: (self parse: tagsString rule: #tags)
+		equals: tags.
+	tagsString := 'tag="2005",tag="2005"'.
+	self
+		assertCollection: (self parse: tagsString rule: #tags)
+		equals: tags
 ]

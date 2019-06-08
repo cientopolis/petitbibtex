@@ -2,6 +2,7 @@ Class {
 	#name : #PPBibtexParser,
 	#superclass : #PPCompositeParser,
 	#instVars : [
+		'tags',
 		'tag',
 		'tagName',
 		'tagValue',
@@ -70,14 +71,15 @@ PPBibtexParser >> tagValue [
 
 { #category : #productions }
 PPBibtexParser >> tags [
-	^ (tagName , whitespace star , $= asParser , whitespace star
-		, tagValue)
-		==>
-			[ :nodes | BibtexTag name: nodes first value value: nodes fifth value ]
+	| theTag |
+	theTag := (whitespace star , tag , whitespace star
+		, $, asParser optional , whitespace star)
+		==> [ :nodes | nodes second ].
+	^ theTag star
 ]
 
 { #category : #productions }
 PPBibtexParser >> whitespace [
 	^ PPPredicateObjectParser
-		anyOf: (Array with: Character space with: Character tab)
+		anyOf: (Array with: Character space with: Character tab with: Character cr)
 ]
