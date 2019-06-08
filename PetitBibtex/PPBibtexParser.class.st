@@ -11,7 +11,8 @@ Class {
 		'whitespace',
 		'nonSeparator',
 		'nonBraket',
-		'nonQuote'
+		'nonQuote',
+		'stringWithBalancedCurlies'
 	],
 	#category : #'PetitBibtex-parser'
 }
@@ -66,6 +67,12 @@ PPBibtexParser >> start [
 ]
 
 { #category : #productions }
+PPBibtexParser >> stringWithBalancedCurlies [
+	^ (${ asParser , (nonBraket / stringWithBalancedCurlies) plus 
+		, $} asParser) flatten
+]
+
+{ #category : #productions }
 PPBibtexParser >> tag [
 	^ (whitespace star , tagName , whitespace star , $= asParser
 		, whitespace star , tagValue , whitespace star)
@@ -81,12 +88,12 @@ PPBibtexParser >> tagName [
 { #category : #productions }
 PPBibtexParser >> tagValue [
 	| curlied quoted number |
-	curlied := (${ asParser , nonBraket plus flatten , $} asParser)
-		==> [ :nodes | nodes second ].
+	curlied := stringWithBalancedCurlies
+		==> [ :nodes | nodes copyFrom: 2 to: nodes size - 1 ].
 	quoted := ($" asParser , nonQuote plus flatten , $" asParser)
 		==> [ :nodes | nodes second ].
 	number := #digit asParser plus flatten.
-	^ curlied / quoted / number
+	^ curlied  / quoted / number
 ]
 
 { #category : #productions }
