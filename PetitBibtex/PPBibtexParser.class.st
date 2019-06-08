@@ -108,5 +108,10 @@ PPBibtexParser >> tags [
 { #category : #productions }
 PPBibtexParser >> whitespace [
 	^ PPPredicateObjectParser
-		anyOf: (Array with: Character space with: Character tab with: Character cr)
+		anyOf:
+			(Array
+				with: Character space
+				with: Character tab
+				with: Character cr
+				with: Character lf)
 ]
