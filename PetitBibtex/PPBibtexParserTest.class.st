@@ -107,6 +107,8 @@ PPBibtexParserTest >> testTagValue [
 	self assert: (self parse: '"value"' rule: #tagValue) equals: 'value'.
 	self assert: (self parse: '{value}' rule: #tagValue) equals: 'value'.
 	self assert: (self parse: '2005' rule: #tagValue) equals: '2005'.
+	"The next one does not comply with the standard syntax, but is present in the test file provided by the bibtex-test CTAN package"
+	self assert: (self parse: 'value' rule: #tagValue) equals: 'value'.
 	self
 		assert: (self parse: '{{value}}' rule: #tagValue)
 		equals: '{value}'.

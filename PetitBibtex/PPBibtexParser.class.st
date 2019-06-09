@@ -123,13 +123,14 @@ PPBibtexParser >> tagName [
 
 { #category : #productions }
 PPBibtexParser >> tagValue [
-	| curlied quoted number |
+	| curlied quoted number singleString |
 	curlied := stringWithBalancedCurlies
 		==> [ :nodes | nodes copyFrom: 2 to: nodes size - 1 ].
 	quoted := ($" asParser , nonQuote plus flatten , $" asParser)
 		==> [ :nodes | nodes second ].
 	number := #digit asParser plus flatten.
-	^ curlied  / quoted / number
+	singleString := #letter asParser plus flatten.
+	^ curlied  / quoted / number / singleString
 ]
 
 { #category : #productions }
