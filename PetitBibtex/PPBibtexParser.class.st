@@ -31,7 +31,7 @@ PPBibtexParser >> entry [
 		, $, asParser , tags , $} asParser , whitespace star)
 		==> [ :nodes | 
 			BibtexEntry
-				type: nodes third trim asLowercase 
+				type: nodes third trim asLowercase
 				citationKey: nodes sixth trim
 				tags: nodes eighth ]
 ]
@@ -68,9 +68,9 @@ PPBibtexParser >> parse: anObject [
 
 { #category : #accessing }
 PPBibtexParser >> removeCommentLinesIn: anObject [
-	| commentedLine nonCommentedLine expression |
+	| commentedLine nonCommentedLine expression result |
 	expression := PPExpressionParser new.
-	commentedLine := ($% asParser
+	commentedLine := ($% asParser plus
 		,
 			(PPPredicateObjectParser
 				anyExceptAnyOf:
@@ -84,7 +84,9 @@ PPBibtexParser >> removeCommentLinesIn: anObject [
 			Character cr}) star
 		, (Character lf asParser / Character cr asParser) plus.
 	expression term: (commentedLine / nonCommentedLine flatten) star.
-	^ (expression parse: anObject) fold: [ :a :b | a , b ]
+	result := String new writeStream.
+	(expression parse: anObject) do: [ :line | result nextPutAll: line ].
+	^ result contents
 ]
 
 { #category : #productions }
