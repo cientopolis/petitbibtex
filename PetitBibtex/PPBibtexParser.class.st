@@ -60,6 +60,33 @@ PPBibtexParser >> nonSeparator [
 			$,}
 ]
 
+{ #category : #accessing }
+PPBibtexParser >> parse: anObject [
+	
+	^ super parse: (self removeCommentLinesIn: anObject)
+]
+
+{ #category : #accessing }
+PPBibtexParser >> removeCommentLinesIn: anObject [
+	| commentedLine nonCommentedLine expression |
+	expression := PPExpressionParser new.
+	commentedLine := ($% asParser
+		,
+			(PPPredicateObjectParser
+				anyExceptAnyOf:
+					{Character lf.
+					Character cr}) star
+		, (Character lf asParser / Character cr asParser) plus)
+		==> [ :nodes | '' ].
+	nonCommentedLine := (PPPredicateObjectParser
+		anyExceptAnyOf:
+			{Character lf.
+			Character cr}) star
+		, (Character lf asParser / Character cr asParser) plus.
+	expression term: (commentedLine / nonCommentedLine flatten) star.
+	^ (expression parse: anObject) fold: [ :a :b | a , b ]
+]
+
 { #category : #productions }
 PPBibtexParser >> scapedBraket [
 	^ '\{' asParser / '\}' asParser
