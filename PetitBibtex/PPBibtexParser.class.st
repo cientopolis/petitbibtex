@@ -74,8 +74,11 @@ PPBibtexParser >> start [
 
 { #category : #productions }
 PPBibtexParser >> stringWithBalancedCurlies [
-	^ (${ asParser , (scapedBraket / nonBraket / stringWithBalancedCurlies) plus 
-		, $} asParser) flatten
+	^ '{}' asParser
+		/
+			(${ asParser
+				, (scapedBraket / nonBraket / stringWithBalancedCurlies) plus
+				, $} asParser) flatten
 ]
 
 { #category : #productions }

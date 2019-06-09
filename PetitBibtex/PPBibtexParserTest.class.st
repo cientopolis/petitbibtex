@@ -75,6 +75,9 @@ PPBibtexParserTest >> testStringWithBalancedCurlies [
 	self
 		assert: (self parse: '{ ad {name} d }' rule: #stringWithBalancedCurlies)
 		equals: '{ ad {name} d }'.
+	self
+		assert: (self parse: '{}' rule: #stringWithBalancedCurlies)
+		equals: '{}'.
 	self fail: '  name  ' rule: #tagName.
 	self fail: '  { ' rule: #tagName
 ]
@@ -108,6 +111,12 @@ PPBibtexParserTest >> testTagValue [
 	self
 		assert: (self parse: '{weird {value} case}' rule: #tagValue)
 		equals: 'weird {value} case'.
+	self
+		assert: (self parse: '{weird {value} case}' rule: #tagValue)
+		equals: 'weird {value} case'.
+	self
+		assert: (self parse: '{}' rule: #tagValue)
+		equals: ''.
 	self fail: ' "value" ' rule: #tagValue.
 	self fail: '  {value}  ' rule: #tagValue.
 	self fail: ' 2005 ' rule: #tagValue
