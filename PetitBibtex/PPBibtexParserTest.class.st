@@ -30,6 +30,8 @@ PPBibtexParserTest >> testEntries [
     tag = {2005},
    }
    @type { pitts123, tag = {2006}, tag = {2006}, }'.
+	self assert: (self parse: string rule: #entries) equals: entries.
+	string := '@type{pitts123,tag={2005},tag={2005},}@type{pitts123,tag={2006},tag={2006},}'.
 	self assert: (self parse: string rule: #entries) equals: entries
 ]
 
@@ -52,7 +54,11 @@ PPBibtexParserTest >> testEntry [
 	self assert: (self parse: entryString rule: #entry) equals: entry.
 	entryString := '@type{pitts123,' , Character lf asString
 		, 'tag={2005},tag={2005},}'.
-	self assert: (self parse: entryString rule: #entry) equals: entry
+	self assert: (self parse: entryString rule: #entry) equals: entry.
+	entryString := '@type{,tag={2005},tag={2005},}'.
+	self
+		assert: (self parse: entryString rule: #entry) citationKey
+		equals: ''
 ]
 
 { #category : #testing }

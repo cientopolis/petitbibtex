@@ -27,7 +27,7 @@ PPBibtexParser >> entries [
 { #category : #productions }
 PPBibtexParser >> entry [
 	^ (whitespace star flatten , $@ asParser , nonBraket plus flatten
-		, ${ asParser , whitespace star flatten , nonSeparator plus flatten
+		, ${ asParser , whitespace star flatten , nonSeparator star flatten
 		, $, asParser , tags , $} asParser , whitespace star)
 		==> [ :nodes | 
 			BibtexEntry
