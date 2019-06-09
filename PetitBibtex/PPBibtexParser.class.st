@@ -31,7 +31,7 @@ PPBibtexParser >> entry [
 		, $, asParser , tags , $} asParser , whitespace star)
 		==> [ :nodes | 
 			BibtexEntry
-				type: nodes third trim
+				type: nodes third trim asLowercase 
 				citationKey: nodes sixth trim
 				tags: nodes eighth ]
 ]

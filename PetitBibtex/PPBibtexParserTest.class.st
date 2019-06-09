@@ -52,6 +52,8 @@ PPBibtexParserTest >> testEntry [
 	self assert: (self parse: entryString rule: #entry) equals: entry.
 	entryString := '@type{pitts123,tag={2005},tag={2005},}'.
 	self assert: (self parse: entryString rule: #entry) equals: entry.
+	entryString := '@TYPE{pitts123,tag={2005},tag={2005},}'.
+	self assert: (self parse: entryString rule: #entry) equals: entry.
 	entryString := '@type{pitts123,' , Character lf asString
 		, 'tag={2005},tag={2005},}'.
 	self assert: (self parse: entryString rule: #entry) equals: entry.
