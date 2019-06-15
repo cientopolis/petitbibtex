@@ -26,7 +26,9 @@ BibtexEntryTest >> testAt [
 { #category : #testing }
 BibtexEntryTest >> testAtPut [
 	entry at: 'title' put: 'new value'.
-	self assert: (entry at: 'title') equals: 'new value'
+	self assert: (entry at: 'title') equals: 'new value'.
+	entry at: 'newTagName' put: 'new value'.
+	self assert: (entry at: 'newTagName') equals: 'new value'
 ]
 
 { #category : #testing }

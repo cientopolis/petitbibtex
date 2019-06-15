@@ -36,7 +36,10 @@ BibtexEntry >> at: key [
 
 { #category : #accessing }
 BibtexEntry >> at: key put: aValue [
-	^ (tags at: key) value: aValue
+	^ tags
+		at: key
+		ifPresent: [ :tag | tag value: aValue ]
+		ifAbsent: [ tags at: key put: (BibtexTag name: key value: aValue) ]
 ]
 
 { #category : #'utility-accessors' }
