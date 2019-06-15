@@ -21,12 +21,27 @@ BibtexEntry class >> type: aTypeString citationKey: aKeyString tags: aCollection
 { #category : #comparing }
 BibtexEntry >> = anotherEntry [
 	^ type = anotherEntry type & (citationKey = anotherEntry citationKey)
-		& (tags = anotherEntry tags)
+		& (self tags = anotherEntry tags)
+]
+
+{ #category : #accessing }
+BibtexEntry >> at: key [
+	^ (tags at: key) value
+]
+
+{ #category : #accessing }
+BibtexEntry >> at: key put: aValue [
+	^ (tags at: key) value: aValue
 ]
 
 { #category : #accessing }
 BibtexEntry >> citationKey [
 	^ citationKey
+]
+
+{ #category : #initialization }
+BibtexEntry >> initialize [
+	tags := Dictionary new
 ]
 
 { #category : #printing }
@@ -49,7 +64,7 @@ BibtexEntry >> printOn: aStream [
 
 { #category : #accessing }
 BibtexEntry >> tags [
-	^ tags
+	^ tags values
 ]
 
 { #category : #accessing }
@@ -61,5 +76,5 @@ BibtexEntry >> type [
 BibtexEntry >> type: aTypeString citationKey: aKeyString tags: aCollectionOfBibtexTag [
 	type := aTypeString.
 	citationKey := aKeyString.
-	tags := aCollectionOfBibtexTag
+	aCollectionOfBibtexTag do: [ :each | tags at: each name put: each ]
 ]
