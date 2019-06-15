@@ -24,9 +24,14 @@ BibtexEntry >> = anotherEntry [
 		& (self tags = anotherEntry tags)
 ]
 
+{ #category : #'utility-accessors' }
+BibtexEntry >> abstract [
+	^ self at: 'abstract'
+]
+
 { #category : #accessing }
 BibtexEntry >> at: key [
-	^ (tags at: key) value
+	^ tags at: key ifPresent: [ :tag | tag value ] ifAbsent: [ nil ]
 ]
 
 { #category : #accessing }
@@ -34,9 +39,19 @@ BibtexEntry >> at: key put: aValue [
 	^ (tags at: key) value: aValue
 ]
 
+{ #category : #'utility-accessors' }
+BibtexEntry >> author [
+	^ self at: 'author'
+]
+
 { #category : #accessing }
 BibtexEntry >> citationKey [
 	^ citationKey
+]
+
+{ #category : #'utility-accessors' }
+BibtexEntry >> editor [
+	^self at: 'editor'
 ]
 
 { #category : #initialization }
@@ -67,6 +82,11 @@ BibtexEntry >> tags [
 	^ tags values
 ]
 
+{ #category : #'utility accessors' }
+BibtexEntry >> title [
+	^ self at: 'title'
+]
+
 { #category : #accessing }
 BibtexEntry >> type [
 	^ type
@@ -77,4 +97,9 @@ BibtexEntry >> type: aTypeString citationKey: aKeyString tags: aCollectionOfBibt
 	type := aTypeString.
 	citationKey := aKeyString.
 	aCollectionOfBibtexTag do: [ :each | tags at: each name put: each ]
+]
+
+{ #category : #'utility-accessors' }
+BibtexEntry >> year [
+	^ self at: 'year'
 ]
