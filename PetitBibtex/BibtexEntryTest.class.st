@@ -51,6 +51,12 @@ BibtexEntryTest >> testEquals [
 ]
 
 { #category : #testing }
+BibtexEntryTest >> testRemoveTag [
+	entry removeTag: 'author'.
+	self assert: entry author isNil
+]
+
+{ #category : #testing }
 BibtexEntryTest >> testUtilityAccessors [
 	entry := BibtexEntry
 		type: 'book'

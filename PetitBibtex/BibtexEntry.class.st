@@ -88,6 +88,11 @@ BibtexEntry >> printOn: aStream [
 ]
 
 { #category : #accessing }
+BibtexEntry >> removeTag: aString [
+	tags removeKey: aString ifAbsent: [  ]
+]
+
+{ #category : #accessing }
 BibtexEntry >> tags [
 	^ tags values
 ]
