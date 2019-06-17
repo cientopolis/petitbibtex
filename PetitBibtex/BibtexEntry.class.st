@@ -21,7 +21,9 @@ BibtexEntry class >> type: aTypeString citationKey: aKeyString tags: aCollection
 { #category : #comparing }
 BibtexEntry >> = anotherEntry [
 	^ type = anotherEntry type & (citationKey = anotherEntry citationKey)
-		& (self tags = anotherEntry tags)
+		&
+			((self tags asSortedCollection: [ :a :b | a name < b name ]) asArray
+				= (anotherEntry tags asSortedCollection: [ :a :b | a name < b name ]) asArray)
 ]
 
 { #category : #'utility-accessors' }
@@ -50,6 +52,11 @@ BibtexEntry >> author [
 { #category : #accessing }
 BibtexEntry >> citationKey [
 	^ citationKey
+]
+
+{ #category : #accessing }
+BibtexEntry >> citationKey: aString [ 
+	citationKey := aString
 ]
 
 { #category : #'utility-accessors' }

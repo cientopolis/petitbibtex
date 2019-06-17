@@ -32,6 +32,25 @@ BibtexEntryTest >> testAtPut [
 ]
 
 { #category : #testing }
+BibtexEntryTest >> testEquals [
+	| equalEntry |
+	equalEntry := BibtexEntry
+		type: 'book'
+		citationKey: 'pitts123'
+		tags:
+			{(BibtexTag name: 'author' value: 'the author').
+			(BibtexTag name: 'title' value: 'the title')}.
+	self assert: entry equals: equalEntry.
+	equalEntry := BibtexEntry
+		type: 'book'
+		citationKey: 'pitts123'
+		tags:
+			{(BibtexTag name: 'title' value: 'the title').
+			(BibtexTag name: 'author' value: 'the author')}.
+	self assert: entry equals: equalEntry
+]
+
+{ #category : #testing }
 BibtexEntryTest >> testUtilityAccessors [
 	entry := BibtexEntry
 		type: 'book'
