@@ -1,7 +1,7 @@
 Class {
 	#name : #DataCiteAPI,
 	#superclass : #Object,
-	#category : #DOI
+	#category : #'DOI-api'
 }
 
 { #category : #api }

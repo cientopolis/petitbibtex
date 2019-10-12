@@ -1,7 +1,7 @@
 Class {
 	#name : #DoiToBibAPI,
 	#superclass : #Object,
-	#category : #DOI
+	#category : #'DOI-api'
 }
 
 { #category : #api }
@@ -11,6 +11,6 @@ DoiToBibAPI >> get: aValidDoiString [
 		ifFalse: [ ZnMimeType textSubTypeFragments add: 'bibtex' ].
 	rawContents := ZnClient new
 		get: 'https://www.doi2bib.org/2/doi2bib?id=' , aValidDoiString.
-	parsedContents := PPBibtexParser new parse: rawContents.
-	^ parsedContents
+	parsedContents := PPBibtexParser new end parse: rawContents.
+	^ parsedContents first
 ]
