@@ -107,6 +107,11 @@ BibtexEntry >> type [
 	^ type
 ]
 
+{ #category : #accessing }
+BibtexEntry >> type: aNewType [
+	type := aNewType
+]
+
 { #category : #initialization }
 BibtexEntry >> type: aTypeString citationKey: aKeyString tags: aCollectionOfBibtexTag [
 	type := aTypeString.
