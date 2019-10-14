@@ -12,5 +12,7 @@ DoiToBibAPI >> get: aValidDoiString [
 	rawContents := ZnClient new
 		get: 'https://www.doi2bib.org/2/doi2bib?id=' , aValidDoiString.
 	parsedContents := PPBibtexParser new end parse: rawContents.
+	parsedContents isPetitFailure
+		ifTrue: [ ^ nil ].
 	^ parsedContents first
 ]
