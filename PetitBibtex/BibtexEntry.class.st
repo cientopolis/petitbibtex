@@ -59,6 +59,11 @@ BibtexEntry >> citationKey: aString [
 	citationKey := aString
 ]
 
+{ #category : #utility }
+BibtexEntry >> cleanupLatexAccentsAndBraces [
+	tags do: #cleanupLatexAccentsAndBraces
+]
+
 { #category : #'utility-accessors' }
 BibtexEntry >> editor [
 	^self at: 'editor'
@@ -97,7 +102,7 @@ BibtexEntry >> tags [
 	^ tags values
 ]
 
-{ #category : #'utility accessors' }
+{ #category : #'utility-accessors' }
 BibtexEntry >> title [
 	^ self at: 'title'
 ]

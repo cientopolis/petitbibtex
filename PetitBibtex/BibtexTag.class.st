@@ -20,6 +20,11 @@ BibtexTag >> = anotherTag [
 	^ anotherTag name = name & (anotherTag value = value)
 ]
 
+{ #category : #utility }
+BibtexTag >> cleanupLatexAccentsAndBraces [
+	value := value ifNotNil: [:it | it copyWithoutLatexAccentsAndBraces]
+]
+
 { #category : #accessing }
 BibtexTag >> name [
 	^ name
