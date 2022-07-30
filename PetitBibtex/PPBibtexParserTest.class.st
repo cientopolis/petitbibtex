@@ -64,6 +64,18 @@ PPBibtexParserTest >> testEntry [
 ]
 
 { #category : #testing }
+PPBibtexParserTest >> testMissingLfCrTabSpaceOrAtEndOfEntry [
+  "This was reported as issue #1 on github"
+	| string   entries |
+	string := '@inproceedings{9270294,
+	}'.
+	parser := PPBibtexParser new.
+	entries := PPBibtexParser new parse: string.
+	self assert: entries isPetitFailure not
+
+]
+
+{ #category : #testing }
 PPBibtexParserTest >> testStringWithBalancedCurlies [
 	self
 		assert: (self parse: '{name}' rule: #stringWithBalancedCurlies)

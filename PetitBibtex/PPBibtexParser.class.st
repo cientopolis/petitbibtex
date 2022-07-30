@@ -18,6 +18,12 @@ Class {
 	#category : #'PetitBibtex-parser'
 }
 
+{ #category : #accessing }
+PPBibtexParser class >> startSymbol [
+
+	^ #entries
+]
+
 { #category : #productions }
 PPBibtexParser >> entries [
 	^ (whitespace star , entry star , whitespace star)
