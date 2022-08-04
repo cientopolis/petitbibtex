@@ -4,20 +4,20 @@ Extension { #name : #String }
 String >> copyWithoutLatexAccentsAndBraces [
 	| replacements newString |
 	newString := self.
-	replacements := Dictionary new.
+	replacements := OrderedCollection  new.
 	replacements
-		at: '{\''{a}}' put: 'á';
-		at: '{\''{e}}' put: 'é';
-		at: '{\''{i}}' put: 'í';
-		at: '{\''{o}}' put: 'ó';
-		at: '{\''{\i}}' put: 'i';
-		at: '{\''{u}}' put: 'ú';
-		at: 'l{\"{o}}' put: 'ö';
-		at: 'l{\"{u}}' put: 'ü';
-		at: '{' put: '';
-		at: '}' put: ''.
+		add: '{' -> '';
+		add: '}' -> '';
+		add: '\''a' -> 'á';
+		add: '\''e' -> 'é';
+		add: '\''i' -> 'í';
+		add: '\''o' -> 'ó';
+		add: '\''i' -> 'i';
+		add: '\''u' -> 'ú';
+		add: '\"o' -> 'ö';
+		add: '\"u' -> 'ü'.
 	replacements
-		associationsDo:
+		do:
 			[ :ass | newString := newString copyReplaceAll: ass key with: ass value ].
 	^ newString
 ]
