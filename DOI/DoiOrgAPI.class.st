@@ -9,7 +9,7 @@ DoiOrgAPI >> get: aValidDoiUrl [
 	"DoiOrgAPI new get: 'http://dx.doi.org/10.1093/ajae/aaq063'"
 
 	| rawContents parsedContents |
-	self class ensureBibtexMimeTypeIsNotBinary.
+	DoiToBibAPI ensureBibtexMimeTypeIsNotBinary.
 	rawContents := ZnClient new
 		accept: 'application/x-bibtex';
 		get: aValidDoiUrl.
