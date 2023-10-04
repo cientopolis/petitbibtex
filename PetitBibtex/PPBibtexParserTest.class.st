@@ -1,6 +1,9 @@
 Class {
 	#name : #PPBibtexParserTest,
 	#superclass : #PPCompositeParserTest,
+	#instVars : [
+		'entries'
+	],
 	#category : #'PetitBibtex-tests'
 }
 
@@ -10,20 +13,29 @@ PPBibtexParserTest >> parserClass [
 ]
 
 { #category : #testing }
+PPBibtexParserTest >> setUp [
+
+	super setUp.
+
+	entries := { 
+		           (BibtexEntry
+			            type: 'type'
+			            citationKey: 'pitts123'
+			            tags: { 
+					            (BibtexTag name: 'tag' value: '2005').
+					            (BibtexTag name: 'tag' value: '2005') }).
+		           (BibtexEntry
+			            type: 'type'
+			            citationKey: 'pitts123'
+			            tags: { 
+					            (BibtexTag name: 'tag' value: '2006').
+					            (BibtexTag name: 'tag' value: '2006') }) }
+]
+
+{ #category : #testing }
 PPBibtexParserTest >> testEntries [
-	| entries string |
-	entries := {(BibtexEntry
-		type: 'type'
-		citationKey: 'pitts123'
-		tags:
-			{(BibtexTag name: 'tag' value: '2005').
-			(BibtexTag name: 'tag' value: '2005')}).
-	(BibtexEntry
-		type: 'type'
-		citationKey: 'pitts123'
-		tags:
-			{(BibtexTag name: 'tag' value: '2006').
-			(BibtexTag name: 'tag' value: '2006')})}.
+
+	| string |
 	string := ' @type { pitts123,
     tag = {2005},
 
@@ -37,13 +49,9 @@ PPBibtexParserTest >> testEntries [
 
 { #category : #testing }
 PPBibtexParserTest >> testEntry [
+
 	| entry entryString |
-	entry := BibtexEntry
-		type: 'type'
-		citationKey: 'pitts123'
-		tags:
-			{(BibtexTag name: 'tag' value: '2005').
-			(BibtexTag name: 'tag' value: '2005')}.
+	entry := entries first.
 	entryString := ' @type { pitts123,
     tag = {2005},
 
@@ -55,12 +63,21 @@ PPBibtexParserTest >> testEntry [
 	entryString := '@TYPE{pitts123,tag={2005},tag={2005},}'.
 	self assert: (self parse: entryString rule: #entry) equals: entry.
 	entryString := '@type{pitts123,' , Character lf asString
-		, 'tag={2005},tag={2005},}'.
+	               , 'tag={2005},tag={2005},}'.
 	self assert: (self parse: entryString rule: #entry) equals: entry.
 	entryString := '@type{,tag={2005},tag={2005},}'.
 	self
 		assert: (self parse: entryString rule: #entry) citationKey
 		equals: ''
+]
+
+{ #category : #testing }
+PPBibtexParserTest >> testIgnorableText [
+
+	| string |
+	string := 'this text should be ignored', 
+	entries first printString.
+	self assert: (self parse: string rule: #entries) first equals: entries first
 ]
 
 { #category : #testing }

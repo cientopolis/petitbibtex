@@ -12,6 +12,7 @@ Class {
 		'nonSeparator',
 		'nonBraket',
 		'nonQuote',
+		'nonAt',
 		'stringWithBalancedCurlies',
 		'scapedBraket'
 	],
@@ -26,7 +27,7 @@ PPBibtexParser class >> startSymbol [
 
 { #category : #productions }
 PPBibtexParser >> entries [
-	^ (whitespace star , entry star , whitespace star)
+	^ (nonAt star , entry star , nonAt star)
 		==> [ :nodes | nodes second ]
 ]
 
@@ -40,6 +41,12 @@ PPBibtexParser >> entry [
 				type: nodes third trim asLowercase
 				citationKey: nodes sixth trim
 				tags: nodes eighth ]
+]
+
+{ #category : #productions }
+PPBibtexParser >> nonAt [
+
+	^ PPPredicateObjectParser anyExceptAnyOf: { $@ }
 ]
 
 { #category : #productions }
