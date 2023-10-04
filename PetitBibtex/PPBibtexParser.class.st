@@ -74,9 +74,12 @@ PPBibtexParser >> nonSeparator [
 ]
 
 { #category : #accessing }
-PPBibtexParser >> parse: anObject [
+PPBibtexParser >> parse: theString [
+
+   "Could not manage to make a parser that ignores comments thus, the removeCommentLinesIn:
+    Could not make it work in the absense of a new line after the last entry, thus the \n"
 	
-	^ super parse: (self removeCommentLinesIn: anObject)
+	^ super parse: (self removeCommentLinesIn: theString, '\n' withCRs )
 ]
 
 { #category : #accessing }

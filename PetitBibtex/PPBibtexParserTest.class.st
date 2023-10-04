@@ -44,7 +44,8 @@ PPBibtexParserTest >> testEntries [
    @type { pitts123, tag = {2006}, tag = {2006}, }'.
 	self assert: (self parse: string rule: #entries) equals: entries.
 	string := '@type{pitts123,tag={2005},tag={2005},}@type{pitts123,tag={2006},tag={2006},}'.
-	self assert: (self parse: string rule: #entries) equals: entries
+	self assert: (self parse: string rule: #entries) equals: entries.
+	self assert: (self parse: string) equals: entries.
 ]
 
 { #category : #testing }
