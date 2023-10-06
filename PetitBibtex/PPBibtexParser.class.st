@@ -13,6 +13,7 @@ Class {
 		'nonBraket',
 		'nonQuote',
 		'nonAt',
+		'nonComma',
 		'stringWithBalancedCurlies',
 		'scapedBraket'
 	],
@@ -34,7 +35,7 @@ PPBibtexParser >> entries [
 { #category : #productions }
 PPBibtexParser >> entry [
 	^ (whitespace star flatten , $@ asParser , nonBraket plus flatten
-		, ${ asParser , whitespace star flatten , nonSeparator star flatten
+		, ${ asParser , whitespace star flatten , nonComma star flatten
 		, $, asParser , tags , $} asParser , whitespace star)
 		==> [ :nodes | 
 			BibtexEntry
@@ -52,6 +53,13 @@ PPBibtexParser >> nonAt [
 { #category : #productions }
 PPBibtexParser >> nonBraket [
 	^ PPPredicateObjectParser anyExceptAnyOf: {${ . $}} 
+]
+
+{ #category : #productions }
+PPBibtexParser >> nonComma [
+	^ PPPredicateObjectParser
+		anyExceptAnyOf:
+			{$,}
 ]
 
 { #category : #productions }

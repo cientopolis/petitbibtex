@@ -69,7 +69,13 @@ PPBibtexParserTest >> testEntry [
 	entryString := '@type{,tag={2005},tag={2005},}'.
 	self
 		assert: (self parse: entryString rule: #entry) citationKey
-		equals: ''
+		equals: ''.
+		
+	"Accept spaces in the citation key as incorrecly used by Scopus"	
+	entryString := '@type{pitts 123,tag={2005},tag={2005},}'.
+	self
+		assert: (self parse: entryString rule: #entry) citationKey
+		equals: 'pitts 123'
 ]
 
 { #category : #testing }
