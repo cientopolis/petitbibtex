@@ -38,10 +38,11 @@ BibtexTag >> name: aTagNameString value: aTagValueString [
 
 { #category : #printing }
 BibtexTag >> printOn: aStream [
+
 	aStream
 		nextPutAll: name;
 		nextPutAll: ' = {';
-		nextPutAll: value;
+		nextPutAll: (value ifNil: [ '' ]) trimBoth;
 		nextPut: $}
 ]
 
