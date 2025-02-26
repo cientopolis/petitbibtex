@@ -33,15 +33,19 @@ BibtexEntry >> abstract [
 
 { #category : #accessing }
 BibtexEntry >> at: key [
-	^ tags at: key ifPresent: [ :tag | tag value ] ifAbsent: [ nil ]
+	^ tags at: key asLowercase ifPresent: [ :tag | tag value ] ifAbsent: [ nil ]
 ]
 
 { #category : #accessing }
 BibtexEntry >> at: key put: aValue [
+
 	^ tags
-		at: key
-		ifPresent: [ :tag | tag value: aValue ]
-		ifAbsent: [ tags at: key put: (BibtexTag name: key value: aValue) ]
+		  at: key asLowercase
+		  ifPresent: [ :tag | tag value: aValue ]
+		  ifAbsent: [
+			  tags
+				  at: key asLowercase
+				  put: (BibtexTag name: key asLowercase value: aValue) ]
 ]
 
 { #category : #'utility-accessors' }

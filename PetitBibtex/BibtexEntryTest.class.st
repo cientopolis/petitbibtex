@@ -32,6 +32,24 @@ BibtexEntryTest >> testAtPut [
 ]
 
 { #category : #testing }
+BibtexEntryTest >> testAtPut_caseMixed [
+	entry at: 'TITLE' put: 'new value'.
+	self assert: (entry at: 'title') equals: 'new value'.
+	self assert: (entry title) equals: 'new value'.
+	
+	entry at: 'UPPER' put: 'upper'.
+	self assert: (entry at: 'upper') equals: 'upper'
+]
+
+{ #category : #testing }
+BibtexEntryTest >> testAt_caseMixed [
+   entry at: 'lower' put: 'lower'.
+	self assert: (entry at: 'lower') equals: 'lower'.
+	self assert: (entry at: 'LOWER') equals: 'lower'.
+	
+]
+
+{ #category : #testing }
 BibtexEntryTest >> testEquals [
 	| equalEntry |
 	equalEntry := BibtexEntry
