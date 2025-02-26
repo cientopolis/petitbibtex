@@ -63,7 +63,7 @@ BibtexEntry >> citationKey: aString [
 	citationKey := aString
 ]
 
-{ #category : #utility }
+{ #category : #maitenance }
 BibtexEntry >> cleanupLatexAccentsAndBraces [
 	tags do: #cleanupLatexAccentsAndBraces
 ]
@@ -73,9 +73,25 @@ BibtexEntry >> editor [
 	^self at: 'editor'
 ]
 
+{ #category : #maitenance }
+BibtexEntry >> fixTagNameCase [
+
+	| tagsToFix |
+	tagsToFix := tags reject: [ :tag | tag name = tag name asLowercase ].
+	tagsToFix do: [ :each |
+		self at: each name put: each value.
+		tags removeKey: each name ]
+]
+
 { #category : #initialization }
 BibtexEntry >> initialize [
 	tags := Dictionary new
+]
+
+{ #category : #maitenance }
+BibtexEntry >> needsTagNameCaseFixig [
+
+	^ (tags reject: [ :tag | tag name = tag name asLowercase ]) notEmpty
 ]
 
 { #category : #printing }
@@ -98,7 +114,7 @@ BibtexEntry >> printOn: aStream [
 
 { #category : #accessing }
 BibtexEntry >> removeTag: aString [
-	tags removeKey: aString ifAbsent: [  ]
+	tags removeKey: aString asLowercase ifAbsent: [  ]
 ]
 
 { #category : #accessing }
