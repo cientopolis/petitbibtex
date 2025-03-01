@@ -10,6 +10,67 @@ Class {
 }
 
 { #category : #'instance creation' }
+BibtexEntry class >> empty: type [
+	^ self new
+		  type: type
+		  citationKey: Time now asMilliSeconds printString
+		  withEmptyTagsNamed: (self standardFieldsFor: type);
+		  yourself
+]
+
+{ #category : #'instance creation' }
+BibtexEntry class >> emptyArticle [
+
+	^ self new
+		  type: 'article'
+		  citationKey: Time now asMilliSeconds printString
+		  withEmptyTagsNamed: (self standardFieldsFor: 'article');
+		  yourself
+]
+
+{ #category : #'instance creation' }
+BibtexEntry class >> emptyBook [
+
+	^ self empty: 'book'
+]
+
+{ #category : #'instance creation' }
+BibtexEntry class >> emptyInbook [
+
+	^ self empty: 'inbook'
+]
+
+{ #category : #'instance creation' }
+BibtexEntry class >> emptyInproceedings [
+
+	^ self empty: 'inproceedings'
+]
+
+{ #category : #'instance creation' }
+BibtexEntry class >> emptyMastersthesis [
+
+	^ self empty: 'mastersthesis'
+]
+
+{ #category : #'instance creation' }
+BibtexEntry class >> emptyMisc [
+
+	^ self empty: 'misc'
+]
+
+{ #category : #'instance creation' }
+BibtexEntry class >> emptyPhdthesis [
+
+	^ self empty: 'phdthesis'
+]
+
+{ #category : #'instance creation' }
+BibtexEntry class >> emptyTechreport [
+
+	^ self empty: 'techreport'
+]
+
+{ #category : #constants }
 BibtexEntry class >> standardFields [
 
 	^ Dictionary new
@@ -48,7 +109,7 @@ BibtexEntry class >> standardFields [
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : #constants }
 BibtexEntry class >> standardFieldsFor: aType [
 
 	^ self standardFields at: aType
@@ -187,6 +248,14 @@ BibtexEntry >> type: aTypeString citationKey: aKeyString tags: aCollectionOfBibt
 	type := aTypeString.
 	citationKey := aKeyString.
 	aCollectionOfBibtexTag do: [ :each | tags at: each name put: each ]
+]
+
+{ #category : #initialization }
+BibtexEntry >> type: aTypeString citationKey: aKeyString withEmptyTagsNamed: aCollectionOfTagNames [
+
+	type := aTypeString.
+	citationKey := aKeyString.
+	aCollectionOfTagNames do: [ :each | self at: each put: '' ]
 ]
 
 { #category : #'utility-accessors' }
