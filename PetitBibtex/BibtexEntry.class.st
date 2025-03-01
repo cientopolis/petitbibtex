@@ -21,11 +21,7 @@ BibtexEntry class >> empty: type [
 { #category : #'instance creation' }
 BibtexEntry class >> emptyArticle [
 
-	^ self new
-		  type: 'article'
-		  citationKey: Time now asMilliSeconds printString
-		  withEmptyTagsNamed: (self standardFieldsFor: 'article');
-		  yourself
+	^ self empty: 'article'
 ]
 
 { #category : #'instance creation' }
