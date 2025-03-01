@@ -224,6 +224,11 @@ BibtexEntry >> removeTag: aString [
 	tags removeKey: aString asLowercase ifAbsent: [  ]
 ]
 
+{ #category : #'utility-accessors' }
+BibtexEntry >> school [
+	^self at: 'school'
+]
+
 { #category : #accessing }
 BibtexEntry >> tags [
 	^ tags values
