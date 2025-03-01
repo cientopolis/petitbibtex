@@ -82,7 +82,7 @@ BibtexEntry class >> standardFields [
 		  put:
 			  { 'author'. 'editor'. 'title'. 'chapter'. 'pages'. 'publisher'.
 			  'year'. 'volume'. 'series'. 'address'. 'edition'. 'month'. 'note'.
-			  'key' };
+			  'booktitle' };
 		  at: 'book'
 		  put:
 			  { 'author'. 'editor'. 'title'. 'publisher'. 'year'. 'volume'.
@@ -171,6 +171,11 @@ BibtexEntry >> cleanupLatexAccentsAndBraces [
 ]
 
 { #category : #'utility-accessors' }
+BibtexEntry >> edition [
+	^self at: 'edition'
+]
+
+{ #category : #'utility-accessors' }
 BibtexEntry >> editor [
 	^self at: 'editor'
 ]
@@ -200,7 +205,7 @@ BibtexEntry >> needsTagNameCaseFixig [
 BibtexEntry >> printOn: aStream [
 	aStream
 		nextPut: $@;
-		nextPutAll: type;
+		nextPutAll: (type ifNil: '');
 		nextPutAll: ' { ';
 		nextPutAll: citationKey;
 		nextPut: $,;
