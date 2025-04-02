@@ -32,7 +32,7 @@ BibtexTag >> name [
 
 { #category : #initialization }
 BibtexTag >> name: aTagNameString value: aTagValueString [
-	name := aTagNameString.
+	name := aTagNameString asLowercase .
 	value := aTagValueString
 ]
 
