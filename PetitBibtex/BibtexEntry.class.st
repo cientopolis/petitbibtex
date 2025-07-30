@@ -160,6 +160,11 @@ BibtexEntry >> author [
 	^ self at: 'author'
 ]
 
+{ #category : #'utility-accessors' }
+BibtexEntry >> author: aString [
+	^ self at: 'author' put: aString
+]
+
 { #category : #accessing }
 BibtexEntry >> citationKey [
 	^ citationKey
