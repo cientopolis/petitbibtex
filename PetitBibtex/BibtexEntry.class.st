@@ -135,6 +135,11 @@ BibtexEntry >> abstract [
 	^ self at: 'abstract'
 ]
 
+{ #category : #'utility-accessors' }
+BibtexEntry >> abstract: aString [
+	^ self at: 'abstract' put: aString
+]
+
 { #category : #accessing }
 BibtexEntry >> at: key [
 	^ tags at: key asLowercase ifPresent: [ :tag | tag value ] ifAbsent: [ nil ]
@@ -157,6 +162,11 @@ BibtexEntry >> author [
 	^ self at: 'author'
 ]
 
+{ #category : #'utility-accessors' }
+BibtexEntry >> author: aString [
+	^ self at: 'author' put: aString
+]
+
 { #category : #accessing }
 BibtexEntry >> citationKey [
 	^ citationKey
@@ -170,6 +180,16 @@ BibtexEntry >> citationKey: aString [
 { #category : #maitenance }
 BibtexEntry >> cleanupLatexAccentsAndBraces [
 	tags do: #cleanupLatexAccentsAndBraces
+]
+
+{ #category : #'utility-accessors' }
+BibtexEntry >> doi [
+	^ self at: 'doi'
+]
+
+{ #category : #'utility-accessors' }
+BibtexEntry >> doi: aString [
+	^ self at: 'doi' put: aString
 ]
 
 { #category : #'utility-accessors' }
@@ -241,6 +261,11 @@ BibtexEntry >> title [
 	^ self at: 'title'
 ]
 
+{ #category : #'utility-accessors' }
+BibtexEntry >> title: aString [
+	^ self at: 'title' put: aString
+]
+
 { #category : #accessing }
 BibtexEntry >> type [
 	^ type
@@ -267,6 +292,21 @@ BibtexEntry >> type: aTypeString citationKey: aKeyString withEmptyTagsNamed: aCo
 ]
 
 { #category : #'utility-accessors' }
+BibtexEntry >> url [
+	^ self at: 'url'
+]
+
+{ #category : #'utility-accessors' }
+BibtexEntry >> url: aString [
+	^ self at: 'url' put: aString
+]
+
+{ #category : #'utility-accessors' }
 BibtexEntry >> year [
 	^ self at: 'year'
+]
+
+{ #category : #'utility-accessors' }
+BibtexEntry >> year: aString [
+	^ self at: 'year' put: aString
 ]
